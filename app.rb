@@ -14,7 +14,7 @@ class Chitter < Sinatra::Base
   end
 
   get '/peeps' do
-    @peeps = ['First Peep', 'Second Peep', 'Third Peep']
+    @peeps = Peep.list
     erb :'peeps/index'
   end
 
