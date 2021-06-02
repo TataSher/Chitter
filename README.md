@@ -29,8 +29,9 @@ rspec
 ```
 rubocop
 ```
-### To create db and tables:
+### To create development database and tables:
 
+see 01_create_database_tables.sql in db/migration folder
 ```
 >> psql CREATE DATABASE chitter_db_development;
 
@@ -41,6 +42,17 @@ rubocop
 >> CREATE TABLE peeps(id SERIAL PRIMARY KEY, peep VARCHAR (300), written_by INTEGER REFERENCES users(user_id), written_at TIMESTAMP);
 
 ```
+### To create test database and tables:
+
+see 02_create_test_database_tables.sql in db/migration folder
+```
+>> psql CREATE DATABASE chitter_db_test;
+
+>> psql \c (to connect to the database)
+
+>> CREATE TABLE users(user_id SERIAL PRIMARY KEY, email VARCHAR (200) UNIQUE, username VARCHAR (200) UNIQUE, password VARCHAR(140));
+
+>> CREATE TABLE peeps(id SERIAL PRIMARY KEY, peep VARCHAR (300), written_by INTEGER REFERENCES users(user_id), written_at TIMESTAMP);
 
 
 ## User Stories
