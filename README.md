@@ -8,7 +8,7 @@
 Clone this repository and then run:
 
 ```
-bundle
+bundle install
 ```
 
 ### To run the Chitter app:
@@ -29,6 +29,19 @@ rspec
 ```
 rubocop
 ```
+### To create db and tables:
+
+```
+>> psql CREATE DATABASE chitter_db_development;
+
+>> psql \c (to connect to the database)
+
+>> CREATE TABLE users(user_id SERIAL PRIMARY KEY, email VARCHAR (200) UNIQUE, username VARCHAR (200) UNIQUE, password VARCHAR(140));
+
+>> CREATE TABLE peeps(id SERIAL PRIMARY KEY, peep VARCHAR (300), written_by INTEGER REFERENCES users(user_id), written_at TIMESTAMP);
+
+```
+
 
 ## User Stories
 

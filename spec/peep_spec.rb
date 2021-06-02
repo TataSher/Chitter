@@ -1,4 +1,4 @@
-require 'peeps'
+require 'peep'
 
 describe 'Peep' do
   describe 'list' do
