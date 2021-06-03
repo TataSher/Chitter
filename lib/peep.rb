@@ -3,8 +3,16 @@ require 'pg'
 class Peep
 
   def self.list
-    connection = PG.connect(dbname: 'chitter_db_development')
+    if ENV['RACK_ENV'] == 'test'
+      connection = PG.connect(dbname: 'chitter_db_test')
+    else
+      connection = PG.connect(dbname: 'chitter_db_development')
+    end
+    
     result = connection.exec( "SELECT * FROM peeps" )
     result.map { |message| message['peep']}
   end
 end
+
+
+
