@@ -1,16 +1,17 @@
 require 'pg'
+require_relative './helpers/db_connect_helper.rb'
 # class Peep allows to create peep instances
 class Peep
 
   def self.list
-    if ENV['ENVIRONMENT'] == 'test'
-      connection = PG.connect(dbname: 'chitter_db_test')
-    else
-      connection = PG.connect(dbname: 'chitter_db_development')
-    end
-    
-    result = connection.exec( "SELECT * FROM peeps" )
+    db_connect 
+    result = @connection.exec( "SELECT * FROM peeps" )
     result.map { |message| message['peep']}
+  end
+
+  def self.create(message)
+    db_connect
+    result = @connection.exec("INSERT INTO peeps (peep) VALUES ('#{message}');")
   end
 end
 
