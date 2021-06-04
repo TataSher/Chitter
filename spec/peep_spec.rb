@@ -12,7 +12,7 @@ describe 'Peep' do
   end
   describe '#create' do
     it 'creates peeps' do
-      Peep.create('Fourth Peep')
+      Peep.create(peep: 'Fourth Peep')
 
       expect(Peep.list).to include('Fourth Peep')
     end

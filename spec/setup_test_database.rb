@@ -1,4 +1,5 @@
 require 'pg'
+require './lib/peep'
 
 def setup_test_database 
 
@@ -15,9 +16,7 @@ def add_users
 end
 
 def add_peeps
-
-  connection = PG.connect(dbname: 'chitter_db_test')
-  connection.exec("INSERT INTO peeps (peep, written_by) VALUES ('First Peep' , '1');")
-  connection.exec("INSERT INTO peeps (peep, written_by) VALUES ('Second Peep' , '1');")
-  connection.exec("INSERT INTO peeps (peep, written_by) VALUES ('Third Peep' , '1');")
+  Peep.create(peep: 'First Peep')
+  Peep.create(peep: 'Second Peep')
+  Peep.create(peep: 'Third Peep')
 end

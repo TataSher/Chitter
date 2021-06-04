@@ -9,9 +9,9 @@ class Peep
     result.map { |message| message['peep']}
   end
 
-  def self.create(message)
+  def self.create(peep:)
     db_connect
-    result = @connection.exec("INSERT INTO peeps (peep) VALUES ('#{message}');")
+    result = @connection.exec("INSERT INTO peeps (peep) VALUES ('#{peep}');")
   end
 end
 
