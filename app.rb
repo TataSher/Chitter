@@ -3,6 +3,7 @@
 require 'sinatra/base'
 require 'sinatra/reloader'
 require './lib/peep'
+require 'pg'
 
 # Chitter controller
 class Chitter < Sinatra::Base
@@ -24,9 +25,9 @@ class Chitter < Sinatra::Base
   end
 
   post '/peeps' do
-    p params
+    peep = params['peep']
     connection = PG.connect(dbname: 'chitter_db_development')
-    connection.exec("INSERT INTO peeps (peep, written_by) VALUES ('First Peep' , '1');")
+    connection.exec("INSERT INTO peeps (peep) VALUES ('#{peep}');")
     redirect '/peeps'
   end
 

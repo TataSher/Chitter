@@ -3,7 +3,7 @@ require 'pg'
 class Peep
 
   def self.list
-    if ENV['RACK_ENV'] == 'test'
+    if ENV['ENVIRONMENT'] == 'test'
       connection = PG.connect(dbname: 'chitter_db_test')
     else
       connection = PG.connect(dbname: 'chitter_db_development')
