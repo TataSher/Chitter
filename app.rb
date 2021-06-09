@@ -12,6 +12,8 @@ class Chitter < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  enable :sessions, :method_override
+
   get '/' do
     'Chitter'
   end
@@ -29,6 +31,12 @@ class Chitter < Sinatra::Base
     new_peep = params['peep']
     Peep.create(peep: new_peep)
     redirect '/peeps'
+  end
+
+  delete '/peeps/:id' do
+     connection = PG.connect(dbname: 'chitter_db_test')
+     connection.exec("DELETE FROM peeps WHERE id = #{params['id']}")
+     redirect '/peeps'
   end
 
 

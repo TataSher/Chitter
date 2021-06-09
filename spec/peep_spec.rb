@@ -16,16 +16,4 @@ describe 'Peep' do
       expect(peeps.first.peep).to eq peep1.peep
     end
   end
-  describe '#create' do
-    it 'creates peeps' do
-      add_peeps
-      peep = Peep.create(peep: 'Fourth Peep')
-      persisted_data = persisted_data(id: peep.id)
-      
-      expect(peep).to be_a Peep
-      expect(peep.id).to eq persisted_data['id']
-      expect(peep.peep).to eq persisted_data['peep']
-
-    end
-  end
 end
