@@ -1,0 +1,1 @@
+ALTER TABLE peeps ADD COLUMN title VARCHAR(60);

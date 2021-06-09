@@ -1,20 +1,31 @@
 require 'peep'
+require 'setup_test_database'
+require 'database_helpers'
 
 describe 'Peep' do
   describe '#list' do
-    it 'returns all peeps' do
+    it 'returns all peeps as Peep instances' do
+      peep1 = Peep.create(peep: 'First Peep')
+      peep2 = Peep.create(peep: 'Second Peep')
+      peep3 = Peep.create(peep: 'Third Peep')
       peeps = Peep.list
-
-      expect(peeps).to include('First Peep')
-      expect(peeps).to include('Second Peep')
-      expect(peeps).to include('Third Peep')
+      
+      expect(peeps.length).to eq(3)
+      expect(peeps.first).to be_a Peep
+      expect(peeps.first.id).to eq peep1.id
+      expect(peeps.first.peep).to eq peep1.peep
     end
   end
   describe '#create' do
     it 'creates peeps' do
-      Peep.create(peep: 'Fourth Peep')
+      add_peeps
+      peep = Peep.create(peep: 'Fourth Peep')
+      persisted_data = persisted_data(id: peep.id)
+      
+      expect(peep).to be_a Peep
+      expect(peep.id).to eq persisted_data['id']
+      expect(peep.peep).to eq persisted_data['peep']
 
-      expect(Peep.list).to include('Fourth Peep')
     end
   end
 end

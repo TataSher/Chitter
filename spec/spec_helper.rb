@@ -14,7 +14,6 @@ RSpec.configure do |config|
   config.before(:each) do
     setup_test_database
     add_users
-    add_peeps
   end
 end
 
