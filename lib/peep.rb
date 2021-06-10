@@ -28,6 +28,12 @@ class Peep
     db_connect
     @connection.exec("DELETE FROM peeps WHERE id = #{id}")
   end
+
+  def self.update(id:, peep:)
+    db_connect
+    result = @connection.exec("UPDATE peeps SET peep = '#{peep}' WHERE id = '#{id}' RETURNING id, peep;")
+    Peep.new(id: result[0]['id'], peep: result[0]['peep'])
+  end
 end
 
 

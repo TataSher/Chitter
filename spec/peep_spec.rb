@@ -36,4 +36,14 @@ describe 'Peep' do
       expect(Peep.list.length).to eq(0)
     end
   end
+  describe '#update' do
+    it 'updates peeps' do
+      peep = Peep.create(peep: 'First Peep')
+      updated_peep = Peep.update(id: peep.id, peep: 'Amended')
+
+      expect(updated_peep).to be_a Peep
+      expect(updated_peep.id).to eq peep.id
+      expect(updated_peep.peep).to eq('Amended')
+    end
+  end
 end
