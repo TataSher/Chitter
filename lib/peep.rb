@@ -24,6 +24,10 @@ class Peep
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
 
+  def self.delete(id:)
+    db_connect
+    @connection.exec("DELETE FROM peeps WHERE id = #{id}")
+  end
 end
 
 

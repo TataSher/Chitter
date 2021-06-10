@@ -34,11 +34,21 @@ class Chitter < Sinatra::Base
   end
 
   delete '/peeps/:id' do
-     connection = PG.connect(dbname: 'chitter_db_test')
-     connection.exec("DELETE FROM peeps WHERE id = #{params['id']}")
+     Peep.delete(id: params['id'])
      redirect '/peeps'
   end
+  
+  get '/peeps/:id/edit' do
+    @peep_id = params['id']
+    erb :'peeps/edit'
+  end
+  
+  patch '/peeps/:id' do
+    connection = PG.connect(dbname: 'chitter_db_test')
+    connection.exec("UPDATE peeps SET peep = '#{params[:peep]}' WHERE id = '#{params[:id]}'")
 
+    redirect('/peeps')
+  end
 
   run! if app_file == $PROGRAM_NAME
 end

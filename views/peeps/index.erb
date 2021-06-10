@@ -19,6 +19,11 @@
               <input type="submit" value="Delete" />
             </form>
           </div>
+          <div class="edit_button">
+          <form action="/peeps/<%= peep.id %>/edit" method='get'>
+            <input type="submit" value="Edit" />
+          </form>
+        </div>
         </li>
       <% end %>
 
