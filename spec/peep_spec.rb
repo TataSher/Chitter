@@ -3,7 +3,7 @@ require 'setup_test_database'
 require 'database_helpers'
 
 describe 'Peep' do
-  describe '#list' do
+  describe '.list' do
     it 'returns all peeps as Peep instances' do
       peep1 = Peep.create(peep: 'First Peep')
       peep2 = Peep.create(peep: 'Second Peep')
@@ -16,7 +16,7 @@ describe 'Peep' do
       expect(peeps.first.peep).to eq peep1.peep
     end
   end
-  describe '#create' do
+  describe '.create' do
     it 'creates peeps' do
       add_peeps
       peep = Peep.create(peep: 'Fourth Peep')
@@ -27,7 +27,7 @@ describe 'Peep' do
       expect(peep.peep).to eq persisted_data['peep']
     end
   end
-  describe '#delete' do
+  describe '.delete' do
     it 'deletes peeps' do
       peep = Peep.create(peep: 'First Peep')
 
@@ -36,7 +36,7 @@ describe 'Peep' do
       expect(Peep.list.length).to eq(0)
     end
   end
-  describe '#update' do
+  describe '.update' do
     it 'updates peeps' do
       peep = Peep.create(peep: 'First Peep')
       updated_peep = Peep.update(id: peep.id, peep: 'Amended')
@@ -44,6 +44,16 @@ describe 'Peep' do
       expect(updated_peep).to be_a Peep
       expect(updated_peep.id).to eq peep.id
       expect(updated_peep.peep).to eq('Amended')
+    end
+  end
+  describe '.find' do
+    it 'finds a peep' do
+      peep = Peep.create(peep: 'First Peep')
+      found_peep = Peep.find(id: peep.id)
+
+      expect(found_peep).to be_a Peep
+      expect(found_peep.id).to eq peep.id
+      expect(found_peep.peep).to eq('First Peep')
     end
   end
 end

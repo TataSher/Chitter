@@ -34,6 +34,12 @@ class Peep
     result = @connection.exec("UPDATE peeps SET peep = '#{peep}' WHERE id = '#{id}' RETURNING id, peep;")
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
+
+  def self.find(id:)
+    db_connect
+    result = @connection.exec("SELECT * FROM peeps WHERE id = '#{id}'")
+    Peep.new(id: result[0]['id'], peep: result[0]['peep'])
+  end
 end
 
 
