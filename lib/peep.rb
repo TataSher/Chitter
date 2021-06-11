@@ -1,5 +1,5 @@
 require 'pg'
-require_relative './helpers/db_connect_helper.rb'
+require 'database_connection'
 # class Peep allows to create peep instances
 class Peep
 
@@ -10,34 +10,29 @@ class Peep
     @peep = peep
   end
 
-  def self.list
-    db_connect 
-    result = @connection.exec( "SELECT * FROM peeps" )
+  def self.list 
+    result = DatabaseConnection.query( "SELECT * FROM peeps" )
     result.map do |peep| 
       Peep.new(id: peep['id'], peep: peep['peep'])
     end
   end
 
   def self.create(peep:)
-    db_connect
-    result = @connection.exec("INSERT INTO peeps (peep) VALUES ('#{peep}') RETURNING id, peep;")
+    result = DatabaseConnection.query("INSERT INTO peeps (peep) VALUES ('#{peep}') RETURNING id, peep;")
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
 
   def self.delete(id:)
-    db_connect
-    @connection.exec("DELETE FROM peeps WHERE id = #{id}")
+    DatabaseConnection.query("DELETE FROM peeps WHERE id = #{id}")
   end
 
   def self.update(id:, peep:)
-    db_connect
-    result = @connection.exec("UPDATE peeps SET peep = '#{peep}' WHERE id = '#{id}' RETURNING id, peep;")
+    result = DatabaseConnection.query("UPDATE peeps SET peep = '#{peep}' WHERE id = '#{id}' RETURNING id, peep;")
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
 
   def self.find(id:)
-    db_connect
-    result = @connection.exec("SELECT * FROM peeps WHERE id = '#{id}'")
+    result = DatabaseConnection.query("SELECT * FROM peeps WHERE id = '#{id}' ")
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
 end
