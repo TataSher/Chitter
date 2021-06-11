@@ -11,22 +11,33 @@
     </form>
     <ul>
       <% @peeps.each do |peep| %>
-        <li class="peep" id="peep-<%= peep.id%>">
-          <%= peep.peep %>
-          <div class="delete_button">
-            <form action="/peeps/<%= peep.id %>" method='post'>
-              <input type="hidden" name="_method" value="DELETE">
-              <input type="submit" value="Delete" />
+        <li>
+          <div class="peep" id="peep-<%= peep.id%>">
+            <%= peep.peep %>
+            <div class="delete_button">
+              <form action="/peeps/<%= peep.id %>" method='post'>
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Delete" />
+              </form>
+            </div>
+            <div class="edit_button">
+              <form action="/peeps/<%= peep.id %>/edit" method='get'>
+                <input type="submit" value="Edit" />
+              </form>
+            </div>
+          <div class="comment_button">
+            <form action="/peeps/<%= peep.id %>/comments/new" method='get'>
+              <input type="submit" value="Comment" />
             </form>
           </div>
-          <div class="edit_button">
-          <form action="/peeps/<%= peep.id %>/edit" method='get'>
-            <input type="submit" value="Edit" />
-          </form>
-        </div>
+        <ul>
+        <% peep.comments.each do |comment| %>
+          <li><%= comment['text'] %></li>
+        <% end %>
+      </ul>
+      </div>
         </li>
       <% end %>
-
     </ul>
   </body>
 </html>

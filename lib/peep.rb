@@ -1,5 +1,5 @@
 require 'pg'
-require 'database_connection'
+require_relative './database_connection.rb'
 # class Peep allows to create peep instances
 class Peep
 
@@ -34,6 +34,10 @@ class Peep
   def self.find(id:)
     result = DatabaseConnection.query("SELECT * FROM peeps WHERE id = '#{id}' ")
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
+  end
+
+  def comments
+    DatabaseConnection.query("SELECT * FROM comments WHERE peep_id = #{id}")
   end
 end
 
