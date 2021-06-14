@@ -5,6 +5,7 @@ require 'sinatra/reloader'
 require './lib/peep'
 require 'pg'
 require_relative './lib/helpers/db_connect_helper.rb'
+require_relative './lib/comment'
 
 # Chitter controller
 class Chitter < Sinatra::Base
@@ -54,8 +55,7 @@ class Chitter < Sinatra::Base
   end
 
   post '/peeps/:id/comments' do
-    connection = PG.connect(dbname: 'chitter_db_test')
-    connection.exec("INSERT INTO comments (text, peep_id) VALUES('#{params[:comment]}', '#{params[:id]}');") 
+    Comment.create(text: params[:comment], peep_id: params[:id])
     redirect '/peeps'
   end
 

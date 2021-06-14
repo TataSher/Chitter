@@ -20,11 +20,11 @@ describe 'Peep' do
     it 'creates peeps' do
       add_peeps
       peep = Peep.create(peep: 'Fourth Peep')
-      persisted_data = persisted_data(id: peep.id)
+      persisted_data = persisted_data(table: 'peeps', id: peep.id)
 
       expect(peep).to be_a Peep
-      expect(peep.id).to eq persisted_data['id']
-      expect(peep.peep).to eq persisted_data['peep']
+      expect(peep.id).to eq persisted_data.first['id']
+      expect(peep.peep).to eq persisted_data.first['peep']
     end
   end
   describe '.delete' do
@@ -56,14 +56,14 @@ describe 'Peep' do
       expect(found_peep.peep).to eq('First Peep')
     end
   end
+  let(:comment_class) { double(:comment_class) }
+
   describe '#comments' do
-    it 'returns a list of comments on a peep' do
-      peep = Peep.create(peep:"First Peep")
-      DatabaseConnection.query("INSERT INTO comments (id, text, peep_id) VALUES(1, 'Test Comment', #{peep.id});")
+    it 'calls .where on the Comment class' do
+      peep = Peep.create(peep: 'First Peep')
+      expect(comment_class).to receive(:where).with(peep_id: peep.id)
 
-      comment = peep.comments.first
-
-      expect(comment['text']).to eq('Test Comment')
-    end 
-  end
+      peep.comments(comment_class)
+    end
+  end   
 end

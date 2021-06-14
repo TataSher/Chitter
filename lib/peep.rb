@@ -36,8 +36,8 @@ class Peep
     Peep.new(id: result[0]['id'], peep: result[0]['peep'])
   end
 
-  def comments
-    DatabaseConnection.query("SELECT * FROM comments WHERE peep_id = #{id}")
+  def comments(comment_class = Comment)
+    comment_class.where(peep_id: id)
   end
 end
 
