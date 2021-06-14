@@ -6,6 +6,8 @@ require './lib/peep'
 require 'pg'
 require_relative './lib/helpers/db_connect_helper.rb'
 require_relative './lib/comment'
+require_relative './lib/tag'
+require_relative './lib/peeptag'
 
 # Chitter controller
 class Chitter < Sinatra::Base
@@ -66,7 +68,7 @@ class Chitter < Sinatra::Base
 
   post '/peeps/:id/tags' do
     tag = Tag.create(content: params[:tag])
-    PeepTag.create(peep_id: params[:id], tag_id: params[:tag_id])
+    Peeptag.create(peep_id: params[:id], tag_id: tag.id)
     redirect '/peeps'
   end
 
