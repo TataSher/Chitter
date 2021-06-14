@@ -1,5 +1,4 @@
 require_relative 'database_helpers'
-
 require 'comment'
 require 'peep'
 

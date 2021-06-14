@@ -30,6 +30,12 @@
               <input type="submit" value="Comment" />
             </form>
           </div>
+          <div class="tag_button">
+          <form action="/peeps/<%= peep.id %>/tags/new" method='get'>
+            <input type="submit" value="Tag" />
+          </form>
+        </div>
+        <h2>Comments</h2>
         <ul>
         <% peep.comments.each do |comment| %>
           <li><%= comment.text %></li>

@@ -59,5 +59,16 @@ class Chitter < Sinatra::Base
     redirect '/peeps'
   end
 
+  get '/peeps/:id/tags/new' do
+    @peep_id = params[:id]
+    erb :'tags/new'
+  end
+
+  post '/peeps/:id/tags' do
+    tag = Tag.create(content: params[:tag])
+    PeepTag.create(peep_id: params[:id], tag_id: params[:tag_id])
+    redirect '/peeps'
+  end
+
   run! if app_file == $PROGRAM_NAME
 end

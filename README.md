@@ -77,22 +77,26 @@ see 02_create_test_database_tables.sql in db/migration folder
    So that I can react to my peeps
    I want to post comments on peeps
 
-6.  As a user
+6. As a user
+   So that I can sort my peeps by category
+   I want to tag my peeps
+
+7.  As a user
     So that I can better appreciate the context of a peep
     I want to see the time at which it was made
 
-7.  As a user
+8.  As a user
     So that I can post messages on Chitter as me
     I want to sign up for Chitter
 
-8.  As a user
+9.  As a user
     So that only I can post messages on Chitter as me
     I want to log in to Chitter
 
-9.  As a user
+10.  As a user
     So that I can avoid others posting messages on Chitter as me
     I want to log out of Chitter
 
-10.  As a user
+11.  As a user
     So that I can stay constantly tapped in to the shouty box of Chitter
     I want to receive an email if I am tagged in a Peep

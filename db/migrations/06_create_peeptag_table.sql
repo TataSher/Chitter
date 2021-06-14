@@ -1,0 +1,1 @@
+CREATE TABLE peeptags(id SERIAL PRIMARY KEY, peep_id INTEGER REFERENCES peeps (id), tag_id INTEGER REFERENCES tags (id));
