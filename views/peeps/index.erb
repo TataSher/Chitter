@@ -41,6 +41,12 @@
           <li><%= comment.text %></li>
         <% end %>
       </ul>
+      <h2>Tags:</h2>
+      <ul>
+        <% peep.tags.each do |tag| %>
+          <li><%= tag.content %></li>
+        <% end %>
+      </ul>
       </div>
         </li>
       <% end %>

@@ -39,6 +39,10 @@ class Peep
   def comments(comment_class = Comment)
     comment_class.where(peep_id: id)
   end
+
+  def tags(tag_class = Tag)
+    tag_class.where(peep_id: id)
+  end
 end
 
 

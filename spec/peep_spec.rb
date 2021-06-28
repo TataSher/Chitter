@@ -66,4 +66,15 @@ describe 'Peep' do
       peep.comments(comment_class)
     end
   end   
+
+  let(:tag_class) { double(:tag_class) }
+
+  describe '#tags' do
+    it 'calls .where on the tag class' do
+      peep = Peep.create(peep: 'First Peep')
+      expect(tag_class).to receive(:where).with(peep_id: peep.id)
+
+      peep.tags(tag_class)
+    end
+  end  
 end
