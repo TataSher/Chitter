@@ -9,6 +9,9 @@
     <form action="/peeps/new">
       <input type="submit" value="Peep" />
     </form>
+    <% if @user %>
+      <h2> Welcome, <%= @user.username %>!<h2/>
+    <% end %>
     <ul>
       <% @peeps.each do |peep| %>
         <li>

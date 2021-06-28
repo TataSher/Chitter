@@ -22,6 +22,7 @@ class Chitter < Sinatra::Base
   end
 
   get '/peeps' do
+    @user = User.find(session[:user_id])
     @peeps = Peep.list
     erb :'peeps/index'
   end
@@ -77,9 +78,10 @@ class Chitter < Sinatra::Base
   end
 
   post '/users' do
-    User.create(username: params[:username], email: params[:email], password: [:password])
+    user = User.create(username: params[:username], email: params[:email], password: [:password])
+    session[:user_id] = user.id
     redirect '/peeps'
   end
-  
+
   run! if app_file == $PROGRAM_NAME
 end
