@@ -18,9 +18,9 @@ class User
     User.new(id: result[0]['id'], username: result[0]['username'], email: result[0]['email'])
   end
 
-  def self.find(id:)
+  def self.find(id)
+    return nil unless id
     result = DatabaseConnection.query("SELECT * FROM users WHERE id = '#{id}'")
-    p id
     User.new(id: result[0]['id'],username: result[0]['username'], email: result[0]['email'])
   end
 end
