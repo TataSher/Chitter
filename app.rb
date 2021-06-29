@@ -2,6 +2,7 @@
 
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'rack-flash'
 require './lib/peep'
 require 'pg'
 require_relative './lib/helpers/db_connect_helper.rb'
@@ -14,6 +15,7 @@ class Chitter < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
+  use Rack::Flash
 
   enable :sessions, :method_override
 
@@ -88,11 +90,14 @@ class Chitter < Sinatra::Base
   end
   
   post '/sessions' do
-    result = DatabaseConnection.query("SELECT * FROM users WHERE email = '#{params[:email]}'")
-    user = User.new(id: result[0]['id'], username: result[0]['username'], email: result[0]['email'])
-
-    session[:user_id] = user.id
-    redirect('/peeps')
+    user = User.authenticate(email: params[:email], password: params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect('/peeps')
+    else
+      flash[:notice] = 'Please check your email or password'
+      redirect('/sessions/new')
+    end
   end
   
   run! if app_file == $PROGRAM_NAME

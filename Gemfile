@@ -11,6 +11,7 @@ gem 'rack'
 gem 'rspec'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'rack-flash3'
 
 group :development, :test do
   gem 'rubocop', '0.79.0'
